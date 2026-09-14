@@ -79,6 +79,9 @@
 [submodule "Input/xkeyboard-config"]
 	path = Input/xkeyboard-config
 	url = https://gitlab.freedesktop.org/xkeyboard-config/xkeyboard-config.git
-[submodlue "Graphics/GTK3/Graphics/weston"]
+[submodule "Graphics/GTK3/Graphics/weston"]
 	path = Graphics/GTK3/Graphics/weston
-	url = https://gitlab.freedesktop.org/wayland/weston.git	
+	url = https://gitlab.freedesktop.org/wayland/weston.git
+[submodule "arkos/arkrt/Graphics/GTK3/Support/seatd"]
+	path = arkos/arkrt/Graphics/GTK3/Support/seatd
+	url = https://github.com/kennylevinsen/seatd
