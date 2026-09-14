@@ -1,0 +1,156 @@
+[submodule "Graphics/GTK3/2Dvector/cairo"]
+	path = Graphics/GTK3/2Dvector/cairo
+	url = https://gitlab.freedesktop.org/cairo/cairo.git
+[submodule "Graphics/GTK3/2Dvector/fontconfig"]
+	path = Graphics/GTK3/2Dvector/fontconfig
+	url = https://gitlab.freedesktop.org/fontconfig/fontconfig.git
+[submodule "Graphics/GTK3/2Dvector/freetype"]
+	path = Graphics/GTK3/2Dvector/freetype
+	url = https://gitlab.freedesktop.org/freetype/freetype.git
+[submodule "Graphics/GTK3/2Dvector/fribidi"]
+	path = Graphics/GTK3/2Dvector/fribidi
+	url = https://github.com/fribidi/fribidi.git
+[submodule "Graphics/GTK3/2Dvector/harfbuzz"]
+	path = Graphics/GTK3/2Dvector/harfbuzz
+	url = https://github.com/harfbuzz/harfbuzz.git
+[submodule "Graphics/GTK3/2Dvector/pango"]
+	path = Graphics/GTK3/2Dvector/pango
+	url = https://gitlab.gnome.org/GNOME/pango.git
+[submodule "Graphics/GTK3/2Dvector/pixman"]
+	path = Graphics/GTK3/2Dvector/pixman
+	url = https://gitlab.freedesktop.org/pixman/pixman.git
+[submodule "Graphics/GTK3/CoreLibs/at-spi2-core"]
+	path = Graphics/GTK3/CoreLibs/at-spi2-core
+	url = https://gitlab.gnome.org/GNOME/at-spi2-core.git
+[submodule "Graphics/GTK3/CoreLibs/gdk-pixbuf"]
+	path = Graphics/GTK3/CoreLibs/gdk-pixbuf
+	url = https://gitlab.gnome.org/GNOME/gdk-pixbuf.git
+[submodule "Graphics/GTK3/CoreLibs/glib.orphan-backup-20260914074922/subprojects/gvdb"]
+	path = Graphics/GTK3/CoreLibs/glib.orphan-backup-20260914074922/subprojects/gvdb
+	url = https://gitlab.gnome.org/GNOME/gvdb.git
+[submodule "Graphics/GTK3/CoreLibs/gobject-introspection.orphan-backup-20260914074947/gobject-introspection-tests"]
+	path = Graphics/GTK3/CoreLibs/gobject-introspection.orphan-backup-20260914074947/gobject-introspection-tests
+	url = https://gitlab.gnome.org/GNOME/gobject-introspection-tests.git
+[submodule "Graphics/GTK3/Foundation/expat"]
+	path = Graphics/GTK3/Foundation/expat
+	url = https://github.com/libexpat/libexpat.git
+[submodule "Graphics/GTK3/Foundation/libffi"]
+	path = Graphics/GTK3/Foundation/libffi
+	url = https://github.com/libffi/libffi.git
+[submodule "Graphics/GTK3/Foundation/libjpeg-turbo"]
+	path = Graphics/GTK3/Foundation/libjpeg-turbo
+	url = https://github.com/libjpeg-turbo/libjpeg-turbo.git
+[submodule "Graphics/GTK3/Foundation/libpng"]
+	path = Graphics/GTK3/Foundation/libpng
+	url = https://github.com/pnggroup/libpng.git
+[submodule "Graphics/GTK3/Foundation/libtiff"]
+	path = Graphics/GTK3/Foundation/libtiff
+	url = https://gitlab.com/libtiff/libtiff.git
+[submodule "Graphics/GTK3/Foundation/libxml2"]
+	path = Graphics/GTK3/Foundation/libxml2
+	url = https://gitlab.gnome.org/GNOME/libxml2.git
+[submodule "Graphics/GTK3/Foundation/pcre2"]
+	path = Graphics/GTK3/Foundation/pcre2
+	url = https://github.com/PCRE2Project/pcre2.git
+[submodule "Graphics/GTK3/Foundation/zlib"]
+	path = Graphics/GTK3/Foundation/zlib
+	url = https://github.com/madler/zlib.git
+[submodule "Graphics/GTK3/Graphics/gtk3"]
+	path = Graphics/GTK3/Graphics/gtk3
+	url = https://gitlab.gnome.org/GNOME/gtk.git
+[submodule "Graphics/GTK3/Graphics/libdrm"]
+	path = Graphics/GTK3/Graphics/libdrm
+	url = https://gitlab.freedesktop.org/mesa/drm.git
+[submodule "Graphics/GTK3/Graphics/libepoxy"]
+	path = Graphics/GTK3/Graphics/libepoxy
+	url = https://github.com/anholt/libepoxy.git
+[submodule "Graphics/GTK3/Graphics/mesa"]
+	path = Graphics/GTK3/Graphics/mesa
+	url = https://gitlab.freedesktop.org/mesa/mesa.git
+[submodule "Graphics/Wayland/Runtime/wayland-protocols"]
+	path = Graphics/Wayland/Runtime/wayland-protocols
+	url = https://gitlab.freedesktop.org/wayland/wayland-protocols.git
+[submodule "Graphics/Wayland/wayland"]
+	path = Graphics/Wayland/wayland
+	url = https://gitlab.freedesktop.org/wayland/wayland.git
+[submodule "Input/libxkbcommon"]
+	path = Input/libxkbcommon
+	url = https://github.com/xkbcommon/libxkbcommon.git
+[submodule "Input/xkeyboard-config"]
+	path = Input/xkeyboard-config
+	url = https://gitlab.freedesktop.org/xkeyboard-config/xkeyboard-config.git
+[submodule "Graphics/GTK3/2Dvector/cairo.orphan-backup-20260914075029"]
+	path = Graphics/GTK3/2Dvector/cairo.orphan-backup-20260914075029
+	url = https://gitlab.freedesktop.org/cairo/cairo.git
+[submodule "Graphics/GTK3/2Dvector/fontconfig.orphan-backup-20260914075045"]
+	path = Graphics/GTK3/2Dvector/fontconfig.orphan-backup-20260914075045
+	url = https://gitlab.freedesktop.org/fontconfig/fontconfig.git
+[submodule "Graphics/GTK3/2Dvector/freetype.orphan-backup-20260914075048"]
+	path = Graphics/GTK3/2Dvector/freetype.orphan-backup-20260914075048
+	url = https://gitlab.freedesktop.org/freetype/freetype.git
+[submodule "Graphics/GTK3/2Dvector/fribidi.orphan-backup-20260914075058"]
+	path = Graphics/GTK3/2Dvector/fribidi.orphan-backup-20260914075058
+	url = https://github.com/fribidi/fribidi.git
+[submodule "Graphics/GTK3/2Dvector/harfbuzz.orphan-backup-20260914075101"]
+	path = Graphics/GTK3/2Dvector/harfbuzz.orphan-backup-20260914075101
+	url = https://github.com/harfbuzz/harfbuzz.git
+[submodule "Graphics/GTK3/2Dvector/pango.orphan-backup-20260914075118"]
+	path = Graphics/GTK3/2Dvector/pango.orphan-backup-20260914075118
+	url = https://gitlab.gnome.org/GNOME/pango.git
+[submodule "Graphics/GTK3/2Dvector/pixman.orphan-backup-20260914075125"]
+	path = Graphics/GTK3/2Dvector/pixman.orphan-backup-20260914075125
+	url = https://gitlab.freedesktop.org/pixman/pixman.git
+[submodule "Graphics/GTK3/CoreLibs/at-spi2-core.orphan-backup-20260914075128"]
+	path = Graphics/GTK3/CoreLibs/at-spi2-core.orphan-backup-20260914075128
+	url = https://gitlab.gnome.org/GNOME/at-spi2-core.git
+[submodule "Graphics/GTK3/CoreLibs/gdk-pixbuf.orphan-backup-20260914075135"]
+	path = Graphics/GTK3/CoreLibs/gdk-pixbuf.orphan-backup-20260914075135
+	url = https://gitlab.gnome.org/GNOME/gdk-pixbuf.git
+[submodule "Graphics/GTK3/Foundation/expat.orphan-backup-20260914075224"]
+	path = Graphics/GTK3/Foundation/expat.orphan-backup-20260914075224
+	url = https://github.com/libexpat/libexpat.git
+[submodule "Graphics/GTK3/Foundation/libffi.orphan-backup-20260914075229"]
+	path = Graphics/GTK3/Foundation/libffi.orphan-backup-20260914075229
+	url = https://github.com/libffi/libffi.git
+[submodule "Graphics/GTK3/Foundation/libjpeg-turbo.orphan-backup-20260914075242"]
+	path = Graphics/GTK3/Foundation/libjpeg-turbo.orphan-backup-20260914075242
+	url = https://github.com/libjpeg-turbo/libjpeg-turbo.git
+[submodule "Graphics/GTK3/Foundation/libpng.orphan-backup-20260914075246"]
+	path = Graphics/GTK3/Foundation/libpng.orphan-backup-20260914075246
+	url = https://github.com/pnggroup/libpng.git
+[submodule "Graphics/GTK3/Foundation/libtiff.orphan-backup-20260914075301"]
+	path = Graphics/GTK3/Foundation/libtiff.orphan-backup-20260914075301
+	url = https://gitlab.com/libtiff/libtiff.git
+[submodule "Graphics/GTK3/Foundation/libxml2.orphan-backup-20260914075307"]
+	path = Graphics/GTK3/Foundation/libxml2.orphan-backup-20260914075307
+	url = https://gitlab.gnome.org/GNOME/libxml2.git
+[submodule "Graphics/GTK3/Foundation/pcre2.orphan-backup-20260914075324"]
+	path = Graphics/GTK3/Foundation/pcre2.orphan-backup-20260914075324
+	url = https://github.com/PCRE2Project/pcre2.git
+[submodule "Graphics/GTK3/Foundation/zlib.orphan-backup-20260914075333"]
+	path = Graphics/GTK3/Foundation/zlib.orphan-backup-20260914075333
+	url = https://github.com/madler/zlib.git
+[submodule "Graphics/GTK3/Graphics/gtk3.orphan-backup-20260914075335"]
+	path = Graphics/GTK3/Graphics/gtk3.orphan-backup-20260914075335
+	url = https://gitlab.gnome.org/GNOME/gtk.git
+[submodule "Graphics/GTK3/Graphics/libdrm.orphan-backup-20260914075532"]
+	path = Graphics/GTK3/Graphics/libdrm.orphan-backup-20260914075532
+	url = https://gitlab.freedesktop.org/mesa/drm.git
+[submodule "Graphics/GTK3/Graphics/libepoxy.orphan-backup-20260914075537"]
+	path = Graphics/GTK3/Graphics/libepoxy.orphan-backup-20260914075537
+	url = https://github.com/anholt/libepoxy.git
+[submodule "Graphics/GTK3/Graphics/mesa.orphan-backup-20260914075539"]
+	path = Graphics/GTK3/Graphics/mesa.orphan-backup-20260914075539
+	url = https://gitlab.freedesktop.org/mesa/mesa.git
+[submodule "Graphics/Wayland/Runtime/wayland-protocols.orphan-backup-20260914075825"]
+	path = Graphics/Wayland/Runtime/wayland-protocols.orphan-backup-20260914075825
+	url = https://gitlab.freedesktop.org/wayland/wayland-protocols.git
+[submodule "Graphics/Wayland/wayland.orphan-backup-20260914075828"]
+	path = Graphics/Wayland/wayland.orphan-backup-20260914075828
+	url = https://gitlab.freedesktop.org/wayland/wayland.git
+[submodule "Input/libxkbcommon.orphan-backup-20260914075833"]
+	path = Input/libxkbcommon.orphan-backup-20260914075833
+	url = https://github.com/xkbcommon/libxkbcommon.git
+[submodule "Input/xkeyboard-config.orphan-backup-20260914075837"]
+	path = Input/xkeyboard-config.orphan-backup-20260914075837
+	url = https://gitlab.freedesktop.org/xkeyboard-config/xkeyboard-config.git
