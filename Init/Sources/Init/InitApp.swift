@@ -91,7 +91,7 @@ struct DisplayDaemon: ServiceLifecycle.Service {
                 "/usr/lib",
                 "/"
             ],
-            allowNetwork: false         // Display app needs zero network access
+            allowNetwork: true         // Display app needs zero network access, but SYS_socket is used for UNIX sockets and seccomp blocks it if false
         )
         
         // Wait for Weston to create the wayland-0 socket before launching GTK app
@@ -140,7 +140,7 @@ struct SeatdDaemon: ServiceLifecycle.Service {
                 "/usr/lib",
                 "/"
             ],
-            allowNetwork: false
+            allowNetwork: true
         )
         
         do {
@@ -181,7 +181,7 @@ struct WestonDaemon: ServiceLifecycle.Service {
                 "/usr/share/X11",
                 "/"
             ],
-            allowNetwork: false
+            allowNetwork: true
         )
         
         do {

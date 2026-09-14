@@ -82,6 +82,6 @@
 [submodule "Graphics/GTK3/Graphics/weston"]
 	path = Graphics/GTK3/Graphics/weston
 	url = https://gitlab.freedesktop.org/wayland/weston.git
-[submodule "arkos/arkrt/Graphics/GTK3/Support/seatd"]
-	path = arkos/arkrt/Graphics/GTK3/Support/seatd
+[submodule "Graphics/GTK3/Support/seatd"]
+	path = Graphics/GTK3/Support/seatd
 	url = https://github.com/kennylevinsen/seatd
