@@ -26,7 +26,9 @@ let package = Package(
         .package(url: "https://github.com/apple/swift-collections.git", from: "1.1.0"),
         .package(url: "https://github.com/apple/swift-mmio.git", branch: "main"),
         .package(url: "https://github.com/apple/swift-crypto.git", from: "3.0.0"),
-     ],
+        .package(url: "https://github.com/apple/swift-atomics.git", branch: "main"),
+        .package(url: "https://github.com/apple/swift-numerics.git", branch: "main")
+    ],
     targets: [
         .target(
             name: "Kernel",

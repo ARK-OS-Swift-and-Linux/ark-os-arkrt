@@ -82,7 +82,7 @@ struct TaskManager: ServiceLifecycle.Service {
 ///   - Network: disabled
 /// The process is fully sandboxed via Landlock + Seccomp through KernelManager.
 struct DisplayDaemon: ServiceLifecycle.Service {
-    private let displayBinaryPath = "/system/bin/ark_display"
+    private let displayBinaryPath = "/system/bin/BootAnim"
     
     func run() async throws {
         print("[DisplayDaemon] Launching GTK3 display...")
@@ -117,7 +117,7 @@ struct DisplayDaemon: ServiceLifecycle.Service {
                 args: [displayBinaryPath],
                 profile: displayProfile,
                 env: [
-                    "XDG_RUNTIME_DIR": "/run", 
+                    "XDG_RUNTIME_DIR": "/run/user/0", 
                     "WAYLAND_DISPLAY": "wayland-0", 
                     "LD_LIBRARY_PATH": "/lib",
                     "FONTCONFIG_FILE": "/etc/fonts/fonts.conf",
@@ -127,6 +127,23 @@ struct DisplayDaemon: ServiceLifecycle.Service {
                 ]
             )
             print("[DisplayDaemon] ark_display launched with PID \(pid)")
+            
+            var status: Int32 = 0
+            _ = Glibc.waitpid(pid, &status, 0)
+            print("[DisplayDaemon] ark_display exited with status \(status). Dropping to fallback shell.")
+            
+            let shellProfile = AppProfile(
+                allowedDirectories: ["/"],
+                allowNetwork: true
+            )
+            let shellPid = try KernelManager.shared.spawnProcess(
+                path: "/system/bin/sh",
+                args: ["/system/bin/sh"],
+                profile: shellProfile,
+                env: ["PATH": "/system/bin:/bin", "HOME": "/"]
+            )
+            _ = Glibc.waitpid(shellPid, &status, 0)
+            
         } catch {
             print("[DisplayDaemon] Failed to launch: \(error)")
         }
@@ -198,12 +215,22 @@ struct WestonDaemon: ServiceLifecycle.Service {
             allowNetwork: true
         )
         
+        _ = Glibc.mkdir("/run/user", 0o700)
+        _ = Glibc.mkdir("/run/user/0", 0o700)
+        
         do {
             let pid = try KernelManager.shared.spawnProcess(
                 path: westonBinaryPath,
-                args: [westonBinaryPath, "--backend=drm-backend.so", "--seat=seat0"],
+                args: [westonBinaryPath, "-B", "drm-backend.so", "--renderer=pixman", "--seat=seat0", "--continue-without-input"],
                 profile: westonProfile,
-                env: ["XDG_RUNTIME_DIR": "/run", "SEATD_SOCK": "/run/seatd.sock", "LD_LIBRARY_PATH": "/lib"]
+                env: [
+                    "XDG_RUNTIME_DIR": "/run/user/0",
+                    "WAYLAND_DISPLAY": "wayland-0",
+                    "SEATD_SOCK": "/run/seatd.sock",
+                    "LD_LIBRARY_PATH": "/lib:/usr/lib:/usr/lib/gbm:/usr/lib/dri",
+                    "GBM_DRIVERS_PATH": "/usr/lib/gbm:/usr/lib",
+                    "LIBGL_DRIVERS_PATH": "/usr/lib/dri"
+                ]
             )
             print("[WestonDaemon] weston launched with PID \(pid)")
         } catch {

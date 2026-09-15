@@ -1,5 +1,5 @@
 {
-  "originHash" : "1d3b8b8120a6ae95fa38244e2b3ff8176f9c2ab352db1916da7a6bfa6c285cdd",
+  "originHash" : "e0d4e2e14aabb962be3f832ef58af263eb47fe7c1b1b8d534769fdf3a49994bb",
   "pins" : [
     {
       "identity" : "swift-argument-parser",
@@ -17,6 +17,15 @@
       "state" : {
         "revision" : "d9a5b37470adc940d22c3bcd5ca6953a516b727f",
         "version" : "1.7.2"
+      }
+    },
+    {
+      "identity" : "swift-atomics",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-atomics.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "bc30c67cf0c4479633621ad7950d71494a07390f"
       }
     },
     {
@@ -53,6 +62,15 @@
       "state" : {
         "revision" : "28eb6f86a84e34e97dd3bea7e9658da15e8a1767",
         "version" : "4.2.1"
+      }
+    },
+    {
+      "identity" : "swift-numerics",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-numerics.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "a7d826ead09420d5e38221ff76c3e0ec9ea4ea8b"
       }
     },
     {

@@ -19,11 +19,15 @@ let package = Package(
     name: "Terminal",
     products: [
         .library(name: "Terminal", type: .static, targets: ["Terminal"]),
+        .executable(name: "BootAnim", targets: ["BootAnim"]),
+        .executable(name: "sash", targets: ["sash"]),
     ],
     dependencies: [
         .package(url: "https://github.com/migueldeicaza/SwiftTerm.git", branch: "main"),
         .package(url: "https://github.com/apple/swift-collections.git", from: "1.1.0"),
         
+    
+        .package(url: "https://github.com/moreSwift/swift-cross-ui.git", branch: "main")
     ],
     targets: [
         .target(
@@ -34,6 +38,20 @@ let package = Package(
 
             ],
             path: "Sources/Terminal"
+        ),
+        .executableTarget(
+            name: "BootAnim",
+            dependencies: [
+                "Terminal",
+                .product(name: "SwiftCrossUI", package: "swift-cross-ui"),
+                .product(name: "DefaultBackend", package: "swift-cross-ui"),
+            ],
+            path: "Sources/BootAnim"
+        ),
+        .executableTarget(
+            name: "sash",
+            dependencies: [],
+            path: "Sources/sash"
         )
     ]
 )

@@ -21,7 +21,7 @@ libepoxy:
 weston:
 	@echo 'Building weston (meson)...'
 	@grep -q wayland_scanner ../../Wayland/wayland/builddir/meson-uninstalled/wayland-scanner-uninstalled.pc || echo 'wayland_scanner=$${prefix}/src/wayland-scanner' >> ../../Wayland/wayland/builddir/meson-uninstalled/wayland-scanner-uninstalled.pc
-	@cd weston && (test -f builddir/build.ninja || PKG_CONFIG_PATH="$$(find ../../../Wayland ../../Support -name 'meson-uninstalled' -o -name 'pkgconfig' | tr '\n' ':')" meson setup builddir -Dbackend-drm=true -Dbackend-headless=false -Dbackend-rdp=false -Dbackend-x11=false -Dcolor-management-lcms=false -Dsystemd=false -Dbackend-pipewire=false) && meson compile -C builddir
+	@cd weston && (test -f builddir/build.ninja || PKG_CONFIG_PATH="$$(find $$(realpath ../../../Wayland ../../Support) -name 'meson-uninstalled' -o -name 'pkgconfig' | tr '\n' ':')" meson setup builddir -Dbackend-drm=true -Dbackend-headless=false -Dbackend-rdp=false -Dbackend-x11=false -Dcolor-management-lcms=false -Dsystemd=false -Dbackend-pipewire=false) && meson compile -C builddir
 
 clean:
 	rm -rf mesa/builddir
