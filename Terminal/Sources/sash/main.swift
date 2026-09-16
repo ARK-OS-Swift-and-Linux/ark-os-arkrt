@@ -54,6 +54,10 @@ while true {
         FileSystemCommands.runRM(args: args, currentDirectory: currentDirectory)
     case "mkdir":
         FileSystemCommands.runMKDIR(args: args, currentDirectory: currentDirectory)
+    case "curl":
+        NetworkingCommands.runCURL(args: args, currentDirectory: currentDirectory)
+    case "wget":
+        NetworkingCommands.runWGET(args: args, currentDirectory: currentDirectory)
     default:
         // Try to run as an external process
         _ = ProcessCommands.runExternalCommand(command: cmd, args: args, currentDirectory: currentDirectory)

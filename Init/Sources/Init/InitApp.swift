@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+
 import Kernel
 import System
 import Connect
@@ -76,171 +77,6 @@ struct TaskManager: ServiceLifecycle.Service {
     }
 }
 
-/// DisplayDaemon launches the GTK3 display app (ark_display) as a sandboxed process.
-/// It is granted only the minimum permissions needed:
-///   - Filesystem: /system/bin (executable), /usr/share/fonts (fonts), /tmp (runtime)
-///   - Network: disabled
-/// The process is fully sandboxed via Landlock + Seccomp through KernelManager.
-struct DisplayDaemon: ServiceLifecycle.Service {
-    private let displayBinaryPath = "/system/bin/BootAnim"
-    
-    func run() async throws {
-        print("[DisplayDaemon] Launching GTK3 display...")
-        
-        // Only grant access to the directories the display app strictly needs
-        let displayProfile = AppProfile(
-            allowedDirectories: [
-                "/system/bin",          // The binary itself
-                "/usr/share/fonts",     // Roboto font files
-                "/usr/share/glib-2.0",  // GLib schemas
-                "/usr/share/X11",       // XKB configuration
-                "/tmp",                 // GTK3/fontconfig runtime cache
-                "/etc/fonts",           // fontconfig configuration
-                "/dev",                 // DRI/GPU device access
-                "/proc",               // Process info (required by glib)
-                "/sys",                  // Sysfs (required for device enumeration)
-                "/run",                  // XDG_RUNTIME_DIR and wayland socket
-                "/lib",
-                "/lib64",
-                "/usr/lib",
-                "/"
-            ],
-            allowNetwork: true         // Display app needs zero network access, but SYS_socket is used for UNIX sockets and seccomp blocks it if false
-        )
-        
-        // Wait for Weston to create the wayland-0 socket before launching GTK app
-        try? await Task.sleep(nanoseconds: 3_000_000_000)
-        
-        do {
-            let pid = try KernelManager.shared.spawnProcess(
-                path: displayBinaryPath,
-                args: [displayBinaryPath],
-                profile: displayProfile,
-                env: [
-                    "XDG_RUNTIME_DIR": "/run/user/0", 
-                    "WAYLAND_DISPLAY": "wayland-0", 
-                    "LD_LIBRARY_PATH": "/lib",
-                    "FONTCONFIG_FILE": "/etc/fonts/fonts.conf",
-                    "FONTCONFIG_PATH": "/etc/fonts",
-                    "HOME": "/tmp",
-                    "FC_DEBUG": "1"
-                ]
-            )
-            print("[DisplayDaemon] ark_display launched with PID \(pid)")
-            
-            var status: Int32 = 0
-            _ = Glibc.waitpid(pid, &status, 0)
-            print("[DisplayDaemon] ark_display exited with status \(status). Dropping to fallback shell.")
-            
-            let shellProfile = AppProfile(
-                allowedDirectories: ["/"],
-                allowNetwork: true
-            )
-            let shellPid = try KernelManager.shared.spawnProcess(
-                path: "/system/bin/sh",
-                args: ["/system/bin/sh"],
-                profile: shellProfile,
-                env: ["PATH": "/system/bin:/bin", "HOME": "/"]
-            )
-            _ = Glibc.waitpid(shellPid, &status, 0)
-            
-        } catch {
-            print("[DisplayDaemon] Failed to launch: \(error)")
-        }
-        
-        // Keep daemon alive — it supervises the display process
-        try? await Task.sleep(nanoseconds: 1_000_000_000_000)
-    }
-}
-
-struct SeatdDaemon: ServiceLifecycle.Service {
-    private let seatdBinaryPath = "/system/bin/seatd"
-    
-    func run() async throws {
-        print("[SeatdDaemon] Launching seatd...")
-        
-        let seatdProfile = AppProfile(
-            allowedDirectories: [
-                "/system/bin",
-                "/dev",
-                "/sys",
-                "/proc",
-                "/run",
-                "/lib",
-                "/lib64",
-                "/usr/lib",
-                "/"
-            ],
-            allowNetwork: true
-        )
-        
-        do {
-            let pid = try KernelManager.shared.spawnProcess(
-                path: seatdBinaryPath,
-                args: [seatdBinaryPath, "-g", "root"],
-                profile: seatdProfile,
-                env: ["XDG_RUNTIME_DIR": "/run", "LD_LIBRARY_PATH": "/lib", "SEATD_SOCK": "/run/seatd.sock"]
-            )
-            print("[SeatdDaemon] seatd launched with PID \(pid)")
-        } catch {
-            print("[SeatdDaemon] Failed to launch seatd: \(error)")
-        }
-        
-        try? await Task.sleep(nanoseconds: 1_000_000_000_000)
-    }
-}
-
-struct WestonDaemon: ServiceLifecycle.Service {
-    private let westonBinaryPath = "/system/bin/weston"
-    
-    func run() async throws {
-        print("[WestonDaemon] Launching weston...")
-        
-        // Wait for seatd to initialize
-        try? await Task.sleep(nanoseconds: 1_000_000_000)
-        
-        let westonProfile = AppProfile(
-            allowedDirectories: [
-                "/system/bin",
-                "/dev",
-                "/sys",
-                "/proc",
-                "/run",
-                "/lib",
-                "/lib64",
-                "/usr/lib",
-                "/usr/share/X11",
-                "/"
-            ],
-            allowNetwork: true
-        )
-        
-        _ = Glibc.mkdir("/run/user", 0o700)
-        _ = Glibc.mkdir("/run/user/0", 0o700)
-        
-        do {
-            let pid = try KernelManager.shared.spawnProcess(
-                path: westonBinaryPath,
-                args: [westonBinaryPath, "-B", "drm-backend.so", "--renderer=pixman", "--seat=seat0", "--continue-without-input"],
-                profile: westonProfile,
-                env: [
-                    "XDG_RUNTIME_DIR": "/run/user/0",
-                    "WAYLAND_DISPLAY": "wayland-0",
-                    "SEATD_SOCK": "/run/seatd.sock",
-                    "LD_LIBRARY_PATH": "/lib:/usr/lib:/usr/lib/gbm:/usr/lib/dri",
-                    "GBM_DRIVERS_PATH": "/usr/lib/gbm:/usr/lib",
-                    "LIBGL_DRIVERS_PATH": "/usr/lib/dri"
-                ]
-            )
-            print("[WestonDaemon] weston launched with PID \(pid)")
-        } catch {
-            print("[WestonDaemon] Failed to launch weston: \(error)")
-        }
-        
-        try? await Task.sleep(nanoseconds: 1_000_000_000_000)
-    }
-}
-
 @main
 struct Init {
     static func main() async {
@@ -267,23 +103,69 @@ struct Init {
         
         print("System hardware initialized.")
 
-        do {
-            try SignatureVault.load(from: "/signature_vault.json")
-            print("SignatureVault loaded successfully.")
-        } catch {
-            print("Failed to load SignatureVault: \(error)")
+        print("====== DRM DIAGNOSTICS ======")
+        if let dir = opendir("/sys/class/drm") {
+            while let ent = readdir(dir) {
+                var dName = ent.pointee.d_name
+                let name = withUnsafeBytes(of: &dName) { rawPtr in
+                    String(cString: rawPtr.baseAddress!.assumingMemoryBound(to: CChar.self))
+                }
+                if name != "." && name != ".." {
+                    print("card: \(name)")
+                    if let file = fopen("/sys/class/drm/\(name)/status", "r") {
+                        var buf = [CChar](repeating: 0, count: 256)
+                        if fgets(&buf, 256, file) != nil {
+                            let statusStr = buf.withUnsafeBufferPointer { String(cString: $0.baseAddress!) }
+                            print("  status: \(statusStr.trimmingCharacters(in: .whitespacesAndNewlines))")
+                        }
+                        fclose(file)
+                    }
+                    
+                    let modesPath = "/sys/class/drm/\(name)/modes"
+                    if let file = fopen(modesPath, "r") {
+                        var buf = [CChar](repeating: 0, count: 256)
+                        while fgets(&buf, 256, file) != nil {
+                            let modeStr = buf.withUnsafeBufferPointer { String(cString: $0.baseAddress!) }
+                            print("    - \(modeStr.trimmingCharacters(in: .whitespacesAndNewlines))")
+                        }
+                        fclose(file)
+                    }
+                }
+            }
+            closedir(dir)
+        }
+        print("=============================")
+
+
+        // 2. Switch standard IO to TTY display
+        print("Switching IO to /dev/tty1...")
+        let ttyFd = open("/dev/tty1", O_RDWR)
+        if ttyFd >= 0 {
+            dup2(ttyFd, 0)
+            dup2(ttyFd, 1)
+            dup2(ttyFd, 2)
+            if ttyFd > 2 {
+                close(ttyFd)
+            }
+        } else {
+            print("Failed to open /dev/tty1")
         }
         
-        // 2. Start Core Daemons via ServiceLifecycle
+        print("Spawning sash shell on TTY...")
+        do {
+            let pid = try KernelManager.shared.spawnProcess(path: "/system/bin/sh", args: ["sh"])
+            print("Spawned sash with PID \(pid)")
+        } catch {
+            print("Failed to spawn sash: \(error)")
+        }
+
+        // 3. Start Core Daemons via ServiceLifecycle
         print("Starting core daemons...")
         
         let networkDaemon = NetworkDaemon()
         let inputDaemon = InputDaemon()
         let securityDaemon = SecurityDaemon()
         let taskManager = TaskManager()
-        let seatdDaemon = SeatdDaemon()
-        let westonDaemon = WestonDaemon()
-        let displayDaemon = DisplayDaemon()
         let logger = Logger(label: "ArkRT.Init")
         
         let serviceGroup = ServiceGroup(
@@ -292,10 +174,7 @@ struct Init {
                     .init(service: networkDaemon),
                     .init(service: inputDaemon),
                     .init(service: securityDaemon),
-                    .init(service: taskManager),
-                    .init(service: seatdDaemon),
-                    .init(service: westonDaemon),
-                    .init(service: displayDaemon)
+                    .init(service: taskManager)
                 ],
                 gracefulShutdownSignals: [.sigterm, .sigint, .sigquit],
                 cancellationSignals: [],
@@ -309,6 +188,6 @@ struct Init {
             print("ServiceGroup failed with error: \(error)")
         }
         
-        print("ArkOS Init Terminated.")
+        print("ARK-OS Init Terminated.")
     }
 }
