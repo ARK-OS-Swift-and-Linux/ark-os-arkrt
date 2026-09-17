@@ -88,3 +88,6 @@
 [submodule "libark"]
 	path = libark
 	url = git@github.com:ARK-OS-Swift-and-Linux/libark.git
+[submodule "Terminal"]
+	path = Terminal
+	url = git@github.com:ARK-OS-Swift-and-Linux/sash.git
