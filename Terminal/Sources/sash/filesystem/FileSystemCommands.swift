@@ -4,20 +4,6 @@ public struct FileSystemCommands {
     
     // MARK: - Core Commands
     
-    public static func runLS(args: [String], currentDirectory: String) {
-        let fileManager = FileManager.default
-        let targetDir = args.isEmpty ? currentDirectory : resolvePath(args[0], currentDirectory: currentDirectory)
-        
-        do {
-            let items = try fileManager.contentsOfDirectory(atPath: targetDir)
-            for item in items.sorted() {
-                print(item)
-            }
-        } catch {
-            print("ls: cannot access '\(targetDir)': \(error.localizedDescription)")
-        }
-    }
-    
     public static func runCAT(args: [String], currentDirectory: String) {
         if args.isEmpty {
             print("cat: missing operand")

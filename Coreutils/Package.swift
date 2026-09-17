@@ -26,5 +26,9 @@ let package = Package(
                 .unsafeFlags(["-enable-bare-slash-regex"])
             ]
         ),
+        .testTarget(
+            name: "lsTests",
+            dependencies: ["ls"]
+        ),
     ]
 )

@@ -85,3 +85,6 @@
 [submodule "Graphics/GTK3/Support/seatd"]
 	path = Graphics/GTK3/Support/seatd
 	url = https://github.com/kennylevinsen/seatd
+[submodule "libark"]
+	path = libark
+	url = git@github.com:ARK-OS-Swift-and-Linux/libark.git

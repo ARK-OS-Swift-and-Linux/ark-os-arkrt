@@ -1,4 +1,4 @@
-enum FileType {
+public enum FileType {
     case regular
     case directory
     case symbolicLink

@@ -37,7 +37,7 @@ public struct ProcessCommands {
             return FileManager.default.fileExists(atPath: command) ? command : nil
         }
         
-        let pathEnv = ProcessInfo.processInfo.environment["PATH"] ?? "/usr/bin:/bin:/usr/sbin:/sbin"
+        let pathEnv = ProcessInfo.processInfo.environment["PATH"] ?? "/usr/bin:/bin:/usr/sbin:/sbin:/system/bin"
         let paths = pathEnv.split(separator: ":").map { String($0) }
         
         for path in paths {

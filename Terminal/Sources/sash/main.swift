@@ -40,8 +40,6 @@ while true {
         FileSystemCommands.runCD(args: args, currentDirectory: &currentDirectory)
     case "pwd":
         FileSystemCommands.runPWD(currentDirectory: currentDirectory)
-    case "ls":
-        FileSystemCommands.runLS(args: args, currentDirectory: currentDirectory)
     case "cat":
         FileSystemCommands.runCAT(args: args, currentDirectory: currentDirectory)
     case "echo":

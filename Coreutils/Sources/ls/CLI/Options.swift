@@ -15,6 +15,9 @@ struct LSOptions: ParsableArguments {
 
     @Flag(name: [.customShort("h"), .customLong("human-readable")], help: "with -l and -s, print sizes like 1K 234M 2G etc.")
     var humanReadable: Bool = false
+    
+    @Flag(name: .customLong("si"), help: "likewise, but use powers of 1000 not 1024")
+    var si: Bool = false
 
     @Flag(name: [.short, .long], help: "list directories themselves, not their contents")
     var directory: Bool = false
