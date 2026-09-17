@@ -1,0 +1,17 @@
+*.o
+.vscode
+*.ninja
+.gitignore
+*.builddir
+*.log
+*.patch
+*.resloved
+*.bin
+.build
+*.resloved
+
+!aake
+!AGENTS.md
+!CREDITS.md
+!README.md
+!LICENSElibark/
